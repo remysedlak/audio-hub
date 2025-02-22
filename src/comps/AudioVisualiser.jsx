@@ -35,7 +35,7 @@ const AudioVisualizer = () => {
     canvas.height = canvas.clientHeight;
 
     const analyser = audioContext.createAnalyser();
-    analyser.fftSize = 256;
+    analyser.fftSize = 32;
 
     const frequencyBufferLength = analyser.frequencyBinCount;
     const frequencyData = new Uint8Array(frequencyBufferLength);
