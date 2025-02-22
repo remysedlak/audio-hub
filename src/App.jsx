@@ -1,6 +1,7 @@
 import React from 'react';
 import './tailwind.css'; // Ensure Tailwind CSS is imported
 import AudioVisualizer from './comps/AudioVisualiser.jsx';
+import KeyInformation from './comps/KeyInformation.jsx';
 
 function App() {
 
@@ -11,6 +12,10 @@ function App() {
 
         <div className="flex justify-center py-10">
           <AudioVisualizer />
+        </div>
+
+        <div className="flex justify-center py-10">
+          <KeyInformation />
         </div>
         
     </div>
