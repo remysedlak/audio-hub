@@ -1,79 +1,79 @@
 import React, { useRef, useEffect } from 'react';
 
 const AudioVisualizer = () => {
-  const canvasRef = useRef(null);
-  const audioRef = useRef(null);
+  const canvasRef = useRef(null); // Reference to the canvas element
+  const audioRef = useRef(null); // Reference to the file input element
 
   useEffect(() => {
     const handleFileChange = (event) => {
-      const file = event.target.files[0];
-      const reader = new FileReader();
+      const file = event.target.files[0]; // The selected audio file
+      const reader = new FileReader(); // FileReader to read the audio file
 
       reader.onload = (event) => {
-        const arrayBuffer = event.target.result;
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const arrayBuffer = event.target.result; // ArrayBuffer containing the audio file data
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)(); // AudioContext for audio processing
 
         audioContext.decodeAudioData(arrayBuffer, (audioBuffer) => {
-          visualize(audioBuffer, audioContext);
+          visualize(audioBuffer, audioContext); // Decoded audio buffer
         });
       };
 
-      reader.readAsArrayBuffer(file);
+      reader.readAsArrayBuffer(file); // Read the file as an ArrayBuffer
     };
 
-    const audioInput = audioRef.current;
-    audioInput.addEventListener('change', handleFileChange);
+    const audioInput = audioRef.current; // Current file input element
+    audioInput.addEventListener('change', handleFileChange); // Add event listener for file input change
 
     return () => {
-      audioInput.removeEventListener('change', handleFileChange);
+      audioInput.removeEventListener('change', handleFileChange); // Cleanup event listener
     };
   }, []);
 
   const visualize = (audioBuffer, audioContext) => {
-    const canvas = canvasRef.current;
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
+    const canvas = canvasRef.current; // Current canvas element
+    canvas.width = canvas.clientWidth; // Set canvas width
+    canvas.height = canvas.clientHeight; // Set canvas height
 
-    const analyser = audioContext.createAnalyser();
-    analyser.fftSize = 32;
+    const analyser = audioContext.createAnalyser(); // AnalyserNode for frequency data
+    analyser.fftSize = 32; // FFT size for the analyser
 
-    const frequencyBufferLength = analyser.frequencyBinCount;
-    const frequencyData = new Uint8Array(frequencyBufferLength);
+    const frequencyBufferLength = analyser.frequencyBinCount; // Number of frequency data points
+    const frequencyData = new Uint8Array(frequencyBufferLength); // Array to hold frequency data
 
-    const source = audioContext.createBufferSource();
-    source.buffer = audioBuffer;
-    source.connect(analyser);
-    analyser.connect(audioContext.destination);
-    source.start();
+    const source = audioContext.createBufferSource(); // AudioBufferSourceNode to play the audio
+    source.buffer = audioBuffer; // Set the audio buffer
+    source.connect(analyser); // Connect source to analyser
+    analyser.connect(audioContext.destination); // Connect analyser to destination (speakers)
+    source.start(); // Start playing the audio
 
-    const canvasContext = canvas.getContext('2d');
-    const barWidth = canvas.width / frequencyBufferLength;
+    const canvasContext = canvas.getContext('2d'); // Canvas rendering context
+    const barWidth = canvas.width / frequencyBufferLength; // Width of each frequency bar
 
     const draw = () => {
-      requestAnimationFrame(draw);
-      canvasContext.fillStyle = 'rgb(173, 216, 230)';
-      canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+      requestAnimationFrame(draw); // Schedule the next frame
+      canvasContext.fillStyle = 'rgb(173, 216, 230)'; // Background color
+      canvasContext.fillRect(0, 0, canvas.width, canvas.height); // Clear the canvas
 
-      analyser.getByteFrequencyData(frequencyData);
+      analyser.getByteFrequencyData(frequencyData); // Get frequency data
 
       for (let i = 0; i < frequencyBufferLength; i++) {
-        canvasContext.fillStyle = `rgb(${frequencyData[i]}, 118, 138)`;
+        canvasContext.fillStyle = `rgb(${frequencyData[i]}, 118, 138)`; // Bar color based on frequency data
         canvasContext.fillRect(
           i * barWidth,
           canvas.height - frequencyData[i],
           barWidth - 1,
           frequencyData[i]
-        );
+        ); // Draw each frequency bar
       }
     };
 
-    draw();
+    draw(); // Start drawing
   };
 
   return (
     <div>
-      <input type="file" id="audio" ref={audioRef} />
-      <canvas id="canvas" ref={canvasRef}></canvas>
+      <input type="file" id="audio" ref={audioRef} /> {/* File input element */}
+      <canvas id="canvas" ref={canvasRef}></canvas> {/* Canvas element */}
     </div>
   );
 };
