@@ -8,7 +8,7 @@ const StartPage = () => {
             // Handle the file upload logic here
         }
     };
-
+    
     return (
         <div className="flex flex-col items-center mt-10 justify-between">
             <h1 className="mb-10 text-5xl text-center font-bold text-white mb-4">Welcome to harmoniX</h1>
@@ -26,5 +26,4 @@ const StartPage = () => {
         </div>
     );
 };
-
 export default StartPage;
