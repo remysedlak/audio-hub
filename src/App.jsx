@@ -5,10 +5,9 @@ import StartPage from './pages/StartPage';
 function App() {
 
   return (
-    <div>
+    <div className="bg-gray-700 flex flex-col h-screen">
         <StartPage/>
      
-        
     </div>
   );
 }
