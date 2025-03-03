@@ -14,11 +14,11 @@ const AudioPage = ({ file }) => {
   }, [file]);
 
   return( <>
-    <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-black to-purple-500">
+    <div className="flex flex-col items-center align-top h-screen bg-gray-700">
       <h1 className="text-3xl sm:text-5xl md:text-5xl 
       lg:text-5xl max-w-full h-full text-center font-bold 
       text-transparent bg-clip-text 
-      bg-gradient-to-r from-purple-500 to-white py-4">
+      text-white py-4">
         Remy's Audio Hub
       </h1>
       {/* container for live and overview of song */}

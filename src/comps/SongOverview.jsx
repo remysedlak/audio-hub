@@ -8,6 +8,7 @@ const SongOverview = ({file}) => {
             <h4 className="text-xl font-semibold py-2">Spectrogram</h4>
             <canvas id="spectrogram" className="w-1/2 h-1/2"></canvas>
             <h4 className="text-xl font-semibold">Key</h4>
+            <h4 className="text-xl font-semibold">Notes</h4>
             <h4 className="text-xl font-semibold">BPM </h4>
             
         </div>
