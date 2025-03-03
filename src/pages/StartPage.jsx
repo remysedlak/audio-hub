@@ -14,7 +14,7 @@ const StartPage = ({ setFile }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-around bg-gray-700 h-screen">
+    <div className="flex flex-col items-center justify-around bg-gray-700 h-screen overflow-hidden">
       <h1 className="text-3xl text-center font-bold mb-4 mt-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-white">Remy's Audio Hub</h1>
       <div>
         <label className="cursor-pointer">
