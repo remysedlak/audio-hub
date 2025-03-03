@@ -10,7 +10,7 @@ const AudioVisualizer = ({ audioContext, analyser }) => {
             const barWidth = (canvas.width / frequencyBufferLength);
 
             const minIndex = Math.floor(0 / (audioContext.sampleRate / 2) * frequencyBufferLength);
-            const maxIndex = Math.floor(20000 / (audioContext.sampleRate / 2) * frequencyBufferLength);
+            const maxIndex = Math.floor(30000 / (audioContext.sampleRate / 2) * frequencyBufferLength);
 
             const draw = () => {
                 requestAnimationFrame(draw);
