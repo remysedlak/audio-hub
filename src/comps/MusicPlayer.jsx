@@ -125,8 +125,10 @@ const MusicPlayer = ({ file }) => {
     }, [file]);
 
     return (
-        <div className="p-4 bg-gray-800 w-full text-white rounded-lg shadow-md">
-            {file && <p className="mb-4 text-lg font-semibold">Now playing: {file.name}</p>}
+        <div className="p-4 bg-gray-800 w-full text-gray-300 rounded-lg shadow-md">
+            {file && <p className="mb-4 text-lg font-semibold">
+                Now playing: {file.name}
+            </p>}
             <div className="flex space-x-4 mb-4 w-full">
                 <button 
                     onClick={playAudio} 

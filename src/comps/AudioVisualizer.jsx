@@ -37,8 +37,7 @@ const AudioVisualizer = ({ audioContext, analyser }) => {
     return (
         <canvas 
         id="audio-visualizer" 
-        height="50"
-        className="rounded">
+        className="rounded w-full h-10 bg-gray-800 my-2">
         </canvas>
     );
 };
