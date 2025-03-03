@@ -1,3 +1,11 @@
+![image](https://github.com/user-attachments/assets/ecec8550-bbad-4946-8e46-30140cad7094)
+#### 3/3/2025 MP3 Duration tracker implemented.
+
+
+
+
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
