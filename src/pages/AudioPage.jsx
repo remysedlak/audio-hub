@@ -14,7 +14,7 @@ const AudioPage = ({ file }) => {
   }, [file]);
 
   return( <>
-    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl max-w-full text-center font-bold 
+    <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl max-w-full text-center font-bold 
     mb-4 mt-4 pb-5 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-white overflow-hidden">
       Remy's Audio Hub
     </h1>
