@@ -30,7 +30,6 @@ const MusicPlayer = ({ file }) => {
             setAudioContext(newAudioContext);
             setAnalyser(newAnalyser);
 
-            console.log('Calling detectBeats');
             detectBeats(newAnalyser, newAudioContext);
 
             newAudio.addEventListener('timeupdate', () => {
@@ -54,7 +53,6 @@ const MusicPlayer = ({ file }) => {
     }, [file]);
 
     const detectBeats = (analyser, audioContext) => {
-        console.log('detectBeats called');
         const bufferLength = analyser.frequencyBinCount;
         const dataArray = new Uint8Array(bufferLength);
         let lastTime = 0;
@@ -73,12 +71,11 @@ const MusicPlayer = ({ file }) => {
             // Beat detection threshold (adjust this value)
             const threshold = 60; // Lowered threshold value
 
-            console.log(`avgVolume: ${avgVolume}, threshold: ${threshold}`);
 
             if (avgVolume > threshold) {
                 const currentTime = audioContext.currentTime;
 
-                console.log(`currentTime: ${currentTime}, lastTime: ${lastTime}`);
+
 
                 if (currentTime - lastTime > 0.3) {
                     lastTime = currentTime;
@@ -88,7 +85,6 @@ const MusicPlayer = ({ file }) => {
                     const elapsedTime = currentTime || 1;
                     const estimatedBpm = (beatCount / elapsedTime) * 60;
                     setBpm(Math.round(estimatedBpm));
-                    console.log(`BPM: ${Math.round(estimatedBpm)}`); // Debug log
                 }
             }
 

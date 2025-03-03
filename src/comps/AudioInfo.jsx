@@ -7,10 +7,16 @@ const AudioInfo = ({ bpm, key }) => {
             <h2 className="text-xl font-semibold">Audio Information</h2>
             {bpm !== null ? (
                 <p className="mt-1">
-                    BPM: {bpm} <br />
-                    Key: {key}</p>
+                    BPM: {bpm} </p>
             ) : (
                 <p className="mt-2">Calculating BPM...</p>
+            )}
+
+            {bpm !== null ? (
+                <p className="mt-1">
+                    Key: {key} </p>
+            ) : (
+                <p className="mt-2">Calculating Key...</p>
             )}
         </div>
     );

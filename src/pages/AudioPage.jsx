@@ -35,14 +35,14 @@ const AudioPage = ({ file }) => {
         </div>
         <div className="sm:w-full md:w-full lg:w-1/2 pl-2">
           <h4 className="text-2xl text-center font-bold text-white mb-4">Song Overview</h4>
-          <SongOverview/>
+          <SongOverview file={file}/>
         </div>
         
     
       </div>
-      <p className="text-sm mt-2  opacity-10 text-center pb-2">
+      <a className="text-sm mt-2  opacity-10 text-center pb-2" href="https://github.com/remysedlak/audio-hub">
           &copy; {new Date().getFullYear()} Remy Sedlak. Feel free to use and share this content.
-        </p>
+        </a>
       
       </div>
       </>
