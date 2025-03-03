@@ -23,9 +23,9 @@ const AudioVisualizer = ({ audioContext, analyser }) => {
                     canvasCtx.fillStyle = "rgb(" + (frequencyData[i]) + ",118, 138)";
                     canvasCtx.fillRect(
                         i * barWidth,
-                        (canvas.height - frequencyData[i] )* 0.01,
+                        canvas.height - frequencyData[i],
                         barWidth - 1,
-                        frequencyData[i] * 0.1
+                        frequencyData[i]
                     );
                 }
             };
@@ -35,7 +35,11 @@ const AudioVisualizer = ({ audioContext, analyser }) => {
     }, [audioContext, analyser]);
 
     return (
-        <canvas id="audio-visualizer" width="400" height="100"></canvas>
+        <canvas 
+        id="audio-visualizer" 
+        height="50"
+        className="rounded">
+        </canvas>
     );
 };
 

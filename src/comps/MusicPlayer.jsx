@@ -80,6 +80,12 @@ const MusicPlayer = ({ file }) => {
                 >
                     Pause
                 </button>
+                <button 
+                    onClick={pauseAudio} 
+                    className="px-4 py-2 bg-purple-500 rounded hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-red-400"
+                >
+                    Load File
+                </button>
             </div>
             <div className="flex items-center space-x-4">
                 <span>{formatTime(currentTime)}</span>
@@ -93,7 +99,11 @@ const MusicPlayer = ({ file }) => {
                 />
                 <span>{formatTime(duration)}</span>
             </div>
-            <AudioVisualizer audioContext={audioContext} analyser={analyser} />
+            <AudioVisualizer 
+            className="rounded"
+            audioContext={audioContext} 
+            analyser={analyser} 
+            />
         </div>
     );
 };
