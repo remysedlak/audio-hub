@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import MusicPlayer from '../comps/MusicPlayer';
+import AudioVisualizer from '../comps/AudioVisualizer';
 
-const AudioVisualizer = ({ file }) => {
+const AudioPage = ({ file }) => {
   const [audioSrc, setAudioSrc] = useState(null);
 
   useEffect(() => {
@@ -21,8 +22,9 @@ const AudioVisualizer = ({ file }) => {
       )} */}
       <h4 className="text-2xl text-center font-bold text-gray-400 mb-4">Basic Song Info</h4>
       <MusicPlayer file={file}/>
+      <AudioVisualizer file={file} />
     </div>
   );
 };
 
-export default AudioVisualizer;
+export default AudioPage;

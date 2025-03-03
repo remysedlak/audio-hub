@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import AudioVisualizer from './AudioVisualizer';
 
 const MusicPlayer = ({ file }) => {
     const [audio, setAudio] = useState(null);
+    const [audioContext, setAudioContext] = useState(null);
+    const [analyser, setAnalyser] = useState(null);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(0);
 
@@ -10,6 +13,17 @@ const MusicPlayer = ({ file }) => {
             const audioUrl = URL.createObjectURL(file);
             const newAudio = new Audio(audioUrl);
             setAudio(newAudio);
+
+            const newAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const newAnalyser = newAudioContext.createAnalyser();
+            newAnalyser.fftSize = 256;
+
+            const source = newAudioContext.createMediaElementSource(newAudio);
+            source.connect(newAnalyser);
+            newAnalyser.connect(newAudioContext.destination);
+
+            setAudioContext(newAudioContext);
+            setAnalyser(newAnalyser);
 
             newAudio.addEventListener('timeupdate', () => {
                 setCurrentTime(newAudio.currentTime);
@@ -34,6 +48,7 @@ const MusicPlayer = ({ file }) => {
     const playAudio = () => {
         if (audio) {
             audio.play();
+            audioContext.resume();
         }
     };
 
@@ -65,13 +80,6 @@ const MusicPlayer = ({ file }) => {
                 >
                     Pause
                 </button>
-
-                <button 
-                    onClick={pauseAudio} 
-                    className="px-4 py-2 bg-purple-400 rounded hover:bg-purple-500 focus:outline-none focus:ring-2 focus:ring-red-400"
-                >
-                    Choose File
-                </button>
             </div>
             <div className="flex items-center space-x-4">
                 <span>{formatTime(currentTime)}</span>
@@ -85,6 +93,7 @@ const MusicPlayer = ({ file }) => {
                 />
                 <span>{formatTime(duration)}</span>
             </div>
+            <AudioVisualizer audioContext={audioContext} analyser={analyser} />
         </div>
     );
 };
