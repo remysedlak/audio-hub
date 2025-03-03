@@ -17,18 +17,18 @@ const AudioPage = ({ file }) => {
     <h1 className="mb-10 text-4xl text-center font-bold text-purple-400 mb-4 mt-4">Audio Hub</h1>
 
     {/* container for live and overview of song */}
-    <div className="flex w-full h-screen justify-around"> 
+    <div className="flex small:flex-col w-full px-2 h-screen justify-around"> 
       
       {/* {audioSrc && (
         <audio controls src={audioSrc} className="mb-10">
           Your browser does not support the audio element.
         </audio>
       )} */}
-      <div className="w-1/3">
+      <div className="w-1/2 pr-1">
         <h4 className="text-2xl text-center font-bold text-gray-400 mb-4">Live Song Info</h4>
         <MusicPlayer file={file}/>
       </div>
-      <div className="w-1/3">
+      <div className="w-1/2 pl-1">
         <h4 className="text-2xl text-center font-bold text-gray-400 mb-4">Song Overview</h4>
         <SongOverview/>
       </div>
