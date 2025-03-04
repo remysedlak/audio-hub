@@ -3,6 +3,11 @@
 
 ![image](https://github.com/user-attachments/assets/e12588be-02df-4f44-a088-0b86ba8efd75)
 
+![image](https://github.com/user-attachments/assets/2b39fdd2-15f7-4eff-9a6d-9b5d15b81526)
+
+built my first custom component, the piano highlighter
+
+
 
 ## Currently researching how to implement visualizations for various audio features
 #### There seems to not be that many resources online. So maybe I can create my own library for myself and others to use.
