@@ -127,8 +127,14 @@ const NoteFinder = ({ file }) => {
 
   return (
     <>
-        <p>Detected keys: {keys.join(", ")}</p>
-        <Piano keys={keys} />
+        {/*<p>Detected keys: {keys.join(", ")}</p>*/}
+        <div className="flex flex-row justify-left pl-2">
+            Base note: {keys[0]} <br />
+            1st Key: {keys[1]} <br />
+            2nd Key: {keys[2]} <br />
+        </div>
+
+        <Piano className="" keys={keys} />
     </>
   );
 };

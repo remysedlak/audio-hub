@@ -9,7 +9,7 @@ function App() {
 
   return (
     <Router>
-      <div className="bg-gray-700 font-sans text-white overflow-y-auto">
+      <div className="bg-gray-700   font-sans overflow-x-hidden overflow-y-auto">
         <Routes>
           <Route path="/" element={<StartPage setFile={setFile} />} />
           <Route path="/visualizer" element={<AudioVisualizer file={file} />} />

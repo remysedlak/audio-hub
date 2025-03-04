@@ -14,7 +14,7 @@ const StartPage = ({ setFile }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-around bg-gray-700 h-screen overflow-hidden">
+    <div className="flex flex-col text-white items-center justify-around bg-gray-700 h-screen overflow-hidden">
       <h1 className="py-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl max-w-full text-center font-bold 
       animate-text text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-purple-400 to-white">Remy's Audio Hub</h1>
       <div>
