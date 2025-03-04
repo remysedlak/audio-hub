@@ -4,6 +4,9 @@ import Piano from './Piano';
 
 const SongOverview = ({file}) => {
     console.log({file});
+
+    const [keys, setKeys] = useState([]);
+
     return (
         <div className= "flex flex-row justify-around items-top p-4 bg-gray-800 text-white rounded-lg shadow-md"> 
             <div className="flex flex-col">
@@ -12,10 +15,8 @@ const SongOverview = ({file}) => {
                 <canvas id="spectrogram" className="w-1/2 h-1/2"></canvas>
 
                 <h4 className="text-xl font-semibold mb-3">Frequent Notes</h4>
+                <p className=""><NoteFinder file={file} setKeys={setKeys}/></p>
                 
-                <Piano className="my-3"/>
-                <p className="mt-2"><NoteFinder file={file}/></p>
-    
             </div>
             <div>
                 <h4 className="text-xl font-semibold py-2">Audio Features</h4>

@@ -1,10 +1,9 @@
-
 import React, { useEffect, useState } from 'react';
-// Contains methods and components for the KeyFinder component
-const KeyFinder = ({ file }) => {
 
+const NoteFinder = ({ file }) => {
+    const [keys, setKeys] = useState([]);
+    
     useEffect(() => {
-  
         console.log("Offline file received:", file);
         async function processFile() {
             if (file) {
@@ -14,8 +13,6 @@ const KeyFinder = ({ file }) => {
         }
         processFile();
     }, [file]);
-
-    const [keys, setKeys] = useState([]);
     
     //decode via web audio api
     async function decodeMP3(file) {
@@ -25,22 +22,43 @@ const KeyFinder = ({ file }) => {
     }
 
     function computeFFT(audioBuffer) {
-        const audioContext = new AudioContext(); // Create a new AudioContext
-        const analyser = audioContext.createAnalyser(); // Create AnalyserNode using the correct AudioContext
-        analyser.fftSize = 4096; // Set fftSize property of the analyser
+        // Create a new offline context for analysis
+        const offlineContext = new OfflineAudioContext(
+            audioBuffer.numberOfChannels,
+            audioBuffer.length,
+            audioBuffer.sampleRate
+        );
         
-        const source = audioContext.createBufferSource(); // Create a BufferSource
-        source.buffer = audioBuffer; // Set the audio buffer
-        source.connect(analyser); // Connect the source to the analyser
-        analyser.connect(audioContext.destination); // Connect analyser to destination (output)
-    
-        // Create an array to store frequency data
-        const spectrum = new Float32Array(analyser.frequencyBinCount);
+        // Create source from the audio buffer
+        const source = offlineContext.createBufferSource();
+        source.buffer = audioBuffer;
         
-        // Get the frequency data from the analyser node
-        analyser.getFloatFrequencyData(spectrum);
-    
-        return { spectrum, sampleRate: audioBuffer.sampleRate };
+        // Create analyzer
+        const analyser = offlineContext.createAnalyser();
+        analyser.fftSize = 4096;
+        
+        // Connect source to analyzer
+        source.connect(analyser);
+        analyser.connect(offlineContext.destination);
+        
+        // Start the source
+        source.start(0);
+        
+        // Process the audio
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Float32Array(bufferLength);
+        
+        // Create a promise to render the audio
+        return offlineContext.startRendering().then(() => {
+            // Once rendering is complete, get the frequency data
+            analyser.getFloatFrequencyData(dataArray);
+            
+            // Return the data and sample rate
+            return { 
+                spectrum: dataArray, 
+                sampleRate: audioBuffer.sampleRate 
+            };
+        });
     }
 
     function frequencyToNote(frequency) {
@@ -55,12 +73,23 @@ const KeyFinder = ({ file }) => {
 
     function detectKey(spectrum, sampleRate) {
         let noteCounts = {};
-    
-        for (let i = 0; i < spectrum.length; i++) {
-            const frequency = (i * sampleRate) / spectrum.length;
-            const note = frequencyToNote(frequency);
-            if (note) {
-                noteCounts[note] = (noteCounts[note] || 0) + 1;
+        
+        // Convert negative dB values to relative magnitude
+        const normalizedSpectrum = Array.from(spectrum).map(value => 
+            // Convert from dB scale (negative values) to a positive scale
+            Math.pow(10, value / 20)
+        );
+        
+        for (let i = 0; i < normalizedSpectrum.length; i++) {
+            const frequency = (i * sampleRate) / (2 * normalizedSpectrum.length); // Nyquist frequency adjustment
+            const magnitude = normalizedSpectrum[i];
+            
+            // Only count frequencies with significant magnitude
+            if (magnitude > 0.005) { // Threshold to filter out noise
+                const note = frequencyToNote(frequency);
+                if (note) {
+                    noteCounts[note] = (noteCounts[note] || 0) + magnitude;
+                }
             }
         }
     
@@ -68,6 +97,11 @@ const KeyFinder = ({ file }) => {
     }
 
     function getTopKeys(noteCounts) {
+        // If no notes were detected, return an empty array
+        if (Object.keys(noteCounts).length === 0) {
+            return ["No keys detected"];
+        }
+        
         return Object.entries(noteCounts)
             .sort((a, b) => b[1] - a[1]) // Sort by count (descending)
             .slice(0, 3) // Get top 3
@@ -75,12 +109,51 @@ const KeyFinder = ({ file }) => {
     }
 
     async function findMostCommonKeys(file) {
-        const audioBuffer = await decodeMP3(file);
-        const { spectrum, sampleRate } = computeFFT(audioBuffer);
-        const noteCounts = detectKey(spectrum, sampleRate);
-        return getTopKeys(noteCounts);
+        try {
+            const audioBuffer = await decodeMP3(file);
+            const { spectrum, sampleRate } = await computeFFT(audioBuffer);
+            const noteCounts = detectKey(spectrum, sampleRate);
+            return getTopKeys(noteCounts);
+        } catch (error) {
+            console.error("Error analyzing audio:", error);
+            return ["Error analyzing audio"];
+        }
     }
-    
-    return <p>{keys.join(", ")}</p>;
+    console.log({keys});
+
+
+    const pianoKeys = [
+    { note: "C", hasBlack: true },
+    { note: "D", hasBlack: true },
+    { note: "E", hasBlack: false },
+    { note: "F", hasBlack: true },
+    { note: "G", hasBlack: true },
+    { note: "A", hasBlack: true },
+    { note: "B", hasBlack: false }
+  ];
+
+  return (
+    <ul className="flex bg-gray-800 rounded p-2">
+      {pianoKeys.map(({ note, hasBlack }, index) => (
+        <li key={index} className="relative">
+          {/* White Key */}
+          <div
+            className={`w-10 h-40 border border-gray-400 ${
+              keys.includes(note) ? "bg-red-500" : "bg-white"
+            }`}
+            data-note={note}  // Store the note in a data attribute
+          >
+            {note}
+          </div>
+
+          {/* Black Key */}
+          {hasBlack && (
+            <div className="absolute top-0 left-7 w-6 h-24 bg-black" data-note={`${note}#`}></div>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
 };
-export default KeyFinder;
+
+export default NoteFinder;
