@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MusicPlayer from '../comps/MusicPlayer';
 import AudioVisualizer from '../comps/AudioVisualizer';
 import SongOverview from '../comps/SongOverview';
+import Piano from '../comps/Piano';
 
 const AudioPage = ({ file }) => {
   const [audioSrc, setAudioSrc] = useState(null);
@@ -14,9 +15,9 @@ const AudioPage = ({ file }) => {
   }, [file]);
 
   return( <>
-    <div className="flex flex-col items-center align-top h-screen bg-gray-700">
+    <div className="flex flex-col items-center h-screen bg-gray-700">
       <h1 className="text-3xl sm:text-5xl md:text-5xl 
-      lg:text-5xl max-w-full h-full text-center font-bold 
+      lg:text-5xl max-w-full text-center font-bold 
       text-transparent bg-clip-text 
       text-white py-4">
         Remy's Audio Hub
@@ -32,6 +33,8 @@ const AudioPage = ({ file }) => {
         <div className="pr-2 sm:w-full md:w-full lg:w-1/2">
           <h4 className="text-2xl text-center font-bold text- mb-4">Live Song Info</h4>
           <MusicPlayer file={file}/>
+          
+
         </div>
         <div className="sm:w-full md:w-full lg:w-1/2 pl-2">
           <h4 className="text-2xl text-center font-bold text-white mb-4">Song Overview</h4>
