@@ -17,10 +17,10 @@ const AudioPage = ({ file }) => {
   return( 
   <>
     <div className=" flex flex-col h-screen bg-gray-700 ">
-    <h1 className="py-4 lg:py-2 lg:mb-2 text-3xl sm:text-4xl md:text-5xl lg:text-4xl max-w-full text-center font-bold 
+    <h1 className="py-4 lg:py-2 text-3xl sm:text-4xl md:text-5xl lg:text-4xl max-w-full text-center font-bold 
       animate-text text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-purple-400 to-white">Remy's Audio Hub</h1>
-      <hr className= "py-10 m-4 lg:pt-0 sm:py-10 lg:py-0 lg:m-0"></hr>
-      <div className="py-8 sm:py-6 m-4 lg:py-0"></div>
+      <hr className= "py-10 m-4 lg:pt-0 sm:py-10 lg:py-0 lg:m-2"></hr>
+      <div className="py-8  m-4 sm:py-6 lg:py-0 lg:m-0"></div>
       {/* container for live and overview of song */}
       <div className=" my-8 flex flex-col sm:flex-col md:flex-col lg:flex-col xl:flex-row w-full px-4 h-screen justify-center items-center"> 
         
@@ -38,7 +38,7 @@ const AudioPage = ({ file }) => {
           
         </div>
         <div className="sm:w-full md:w-full w-full lg:w-1/2 lg:ml-2">
-          <h4 className="text-2xl text-center font-bold text-white my-4">Song Overview</h4>
+          <h4 className="md:mt-2 text-2xl text-center font-bold text-white my-4">Song Overview</h4>
           <SongOverview file={file}/>
         </div>
         
