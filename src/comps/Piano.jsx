@@ -28,7 +28,9 @@ const Piano = ({ keys }) => {
 
           {/* Black Key */}
           {hasBlack && (
-            <div className="absolute top-0 left-7 w-6 h-24 bg-black" data-note={`${note}#`}></div>
+            <div className={`absolute top-0 left-7 w-6 h-24 ${
+              keys.includes(note + "#") ? "bg-red-500" : "bg-black"}`} 
+            data-note={`${note}#`}></div>
           )}
         </li>
       ))}
