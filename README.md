@@ -7,6 +7,10 @@
 
 built my first custom component, the piano highlighter
 
+![image](https://github.com/user-attachments/assets/428ddc65-2423-468a-b59a-a5519c103dbb)
+
+trying to modify the spectogram I developed now. I believe my piano note finder is incorrect and i will need to reroute the correct ones to the state.
+
 
 
 ## Currently researching how to implement visualizations for various audio features
