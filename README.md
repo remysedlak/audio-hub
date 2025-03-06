@@ -19,7 +19,7 @@ My main goal with this project is extract all possible useful information about 
 I have not found any valid, up to date, WORKING, spectrogram libraries or key finders. I believe that I can manipulate the FFT and Zero Crossing Rate of the audioBuffer
 in order find real-time and post-time scales of songs. Shazam doesn't seem to offer public use of it's API, so I could try to build my own song detector. I also figure I need to check out Spotify's API, since it has a lot of features.
 
-
+## I want to come back to this project after i have put more of a working key detection system. Currently researching how I can build an interactive spectorgram, since I don't see any inspo/existing models online.  
 
 
 
